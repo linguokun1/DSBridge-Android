@@ -689,6 +689,19 @@ public class DWebView extends WebView {
                     return true;
                 }
             }
+            Context context = getContext();
+            if (context instanceof Activity) {
+                Activity activity = (Activity) context;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    if(activity.isDestroyed()){
+                        return true;
+                    }
+                }
+                if(activity.isFinishing()){
+                    return true;
+                }
+            }
+
             Dialog alertDialog = new AlertDialog.Builder(getContext()).
                     setMessage(message).
                     setCancelable(false).
